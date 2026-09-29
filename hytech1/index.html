@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kelompok — Adriano, Abhinaya, Fawwaz, Rizki, Vincent, Rahul</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --gray-100: #f5f5f5;
+    --gray-200: #e5e5e5;
+    --gray-400: #a3a3a3;
+    --gray-600: #525252;
+    --gray-800: #1f1f1f;
+    --ios-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  html { scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+
+  /* ============ BODY — MONOCHROME BACKGROUND ============ */
+  body {
+    color: var(--black);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 15% 15%, #e0e0e0 0%, transparent 45%),
+      radial-gradient(circle at 85% 20%, #d4d4d4 0%, transparent 45%),
+      radial-gradient(circle at 20% 85%, #ebebeb 0%, transparent 45%),
+      radial-gradient(circle at 85% 80%, #dcdcdc 0%, transparent 45%),
+      linear-gradient(135deg, #fafafa 0%, #f0f0f0 50%, #f5f5f5 100%);
+    background-attachment: fixed;
+    position: relative;
+  }
+
+  /* Noise texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.25;
+    z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+
+  /* Subtle blob abu-abu */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(circle at 30% 40%, rgba(180, 180, 180, 0.3) 0%, transparent 25%),
+      radial-gradient(circle at 70% 60%, rgba(200, 200, 200, 0.3) 0%, transparent 25%);
+    filter: blur(80px);
+    opacity: 0.6;
+  }
+
+  body > * { position: relative; z-index: 1; }
+
+  img, video, iframe { max-width: 100%; height: auto; }
+
+  /* ============ NAVBAR ============ */
+  nav {
+    position: sticky; top: 0; z-index: 1000; padding: 0 40px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.3),
+      0 8px 32px rgba(0, 0, 0, 0.06);
+    transition: all 0.35s var(--ios-ease);
+  }
+  nav.scrolled {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.4),
+      0 12px 40px rgba(0, 0, 0, 0.08);
+  }
+  .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; height: 70px; }
+
+  .logo {
+    background: linear-gradient(180deg, #1a1a1a 0%, #555 45%, #0a0a0a 55%, #1a1a1a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    font-size: 1.05rem; letter-spacing: -0.02em; cursor: pointer; text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .logo::before {
+    content: '';
+    width: 10px; height: 10px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #666 100%);
+    border-radius: 50%;
+    box-shadow:
+      0 0 8px rgba(0, 0, 0, 0.4),
+      0 0 16px rgba(120, 120, 120, 0.3);
+  }
+  nav ul { list-style: none; display: flex; gap: 32px; align-items: center; }
+  nav ul li a {
+    color: var(--gray-600); text-decoration: none; font-size: 0.9rem; font-weight: 500;
+    transition: color 0.25s var(--ios-ease); cursor: pointer; position: relative;
+  }
+  nav ul li a:hover, nav ul li a.active { color: var(--black); }
+  nav ul li a.active::after {
+    content: ''; position: absolute; bottom: -25px; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, #1a1a1a, transparent);
+    border-radius: 2px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Dropdown */
+  .dropdown { position: relative; }
+  .dropdown > a::after { content: ' ▾'; font-size: 0.7rem; }
+  .dropdown-menu {
+    position: absolute; top: 100%; left: 50%;
+    transform: translateX(-50%) translateY(-8px) scale(0.96);
+    transform-origin: top center;
+    min-width: 260px; padding: 8px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: saturate(180%) blur(28px);
+    -webkit-backdrop-filter: saturate(180%) blur(28px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 18px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.4),
+      0 20px 60px rgba(0, 0, 0, 0.12),
+      0 0 40px rgba(120, 120, 120, 0.08);
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.35s var(--ios-ease), visibility 0.35s var(--ios-ease), transform 0.35s var(--ios-ease);
+    margin-top: 12px;
+  }
+  .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0) scale(1); }
+  .dropdown-menu li { list-style: none; }
+  .dropdown-menu li a { display: block; padding: 10px 16px; font-size: 0.85rem; color: var(--gray-600); border-radius: 10px; transition: background 0.2s ease; }
+  .dropdown-menu li a:hover { background: rgba(0, 0, 0, 0.05); color: var(--black); }
+  .dropdown-menu li a.active::after { display: none; }
+
+  /* ============ MAIN ============ */
+  main { max-width: 1200px; margin: 0 auto; padding: 60px 40px 100px; min-height: calc(100vh - 70px - 80px); }
+
+  /* ============ PAGE TRANSITION ============ */
+  .page {
+    display: none;
+    opacity: 0;
+    transform: scale(0.97) translateY(8px);
+    transition: opacity 0.45s var(--ios-ease), transform 0.45s var(--ios-ease);
+  }
+  .page.active { display: block; opacity: 1; transform: scale(1) translateY(0); }
+
+  .page.active .page-header { animation: iosSlideUp 0.55s var(--ios-ease) backwards; animation-delay: 0.08s; }
+  .page.active .profile-header,
+  .page.active .profile-body,
+  .page.active .hero-home { animation: iosSlideUp 0.55s var(--ios-ease) backwards; animation-delay: 0.12s; }
+  .page.active .items-list .item,
+  .page.active .members-grid .member-card { animation: iosSlideUp 0.5s var(--ios-ease) backwards; }
+  .page.active .items-list .item:nth-child(1),
+  .page.active .members-grid .member-card:nth-child(1) { animation-delay: 0.12s; }
+  .page.active .items-list .item:nth-child(2),
+  .page.active .members-grid .member-card:nth-child(2) { animation-delay: 0.16s; }
+  .page.active .items-list .item:nth-child(3),
+  .page.active .members-grid .member-card:nth-child(3) { animation-delay: 0.20s; }
+  .page.active .items-list .item:nth-child(4),
+  .page.active .members-grid .member-card:nth-child(4) { animation-delay: 0.24s; }
+  .page.active .items-list .item:nth-child(5),
+  .page.active .members-grid .member-card:nth-child(5) { animation-delay: 0.28s; }
+  .page.active .items-list .item:nth-child(6),
+  .page.active .members-grid .member-card:nth-child(6) { animation-delay: 0.32s; }
+
+  @keyframes iosSlideUp {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* ============ HERO ============ */
+  .hero-home {
+    padding: 70px 48px;
+    margin-bottom: 60px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.45) 100%);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 32px;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 1),
+      inset 1px 0 0 rgba(255, 255, 255, 0.7),
+      inset -1px 0 0 rgba(255, 255, 255, 0.7),
+      inset 0 -1.5px 0 rgba(255, 255, 255, 0.4),
+      0 20px 60px rgba(0, 0, 0, 0.08),
+      0 0 80px rgba(180, 180, 180, 0.15);
+  }
+  .hero-home::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 100%);
+    border-radius: 32px 32px 50% 50% / 32px 32px 20% 20%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-home::after {
+    content: '';
+    position: absolute;
+    top: -40%; right: -20%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(160, 160, 160, 0.2) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(40px);
+  }
+  .hero-home > * { position: relative; z-index: 1; }
+
+  .hero-home .label {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em;
+    color: var(--black); margin-bottom: 24px; font-weight: 600;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    border-radius: 999px;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.5),
+      0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+  .hero-home .label::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: #1a1a1a;
+    border-radius: 50%;
+    box-shadow:
+      0 0 8px rgba(0, 0, 0, 0.6),
+      0 0 16px rgba(120, 120, 120, 0.4);
+  }
+
+  .hero-home h1 {
+    font-size: 4rem; font-weight: 800; line-height: 1.05; letter-spacing: -0.035em;
+    margin-bottom: 32px; max-width: 900px;
+    background: linear-gradient(180deg, #0a0a0a 0%, #4a4a4a 45%, #0a0a0a 55%, #1a1a1a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.08));
+  }
+  .hero-home h1 em {
+    font-style: normal;
+    background: linear-gradient(180deg, #666 0%, #999 45%, #555 55%, #777 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.15));
+  }
+  .hero-home .desc {
+    font-size: 1.05rem; color: var(--gray-600); max-width: 620px; margin-bottom: 40px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  /* ============ BUTTON ============ */
+  .btn {
+    display: inline-block; padding: 14px 28px;
+    background: linear-gradient(135deg, #2a2a2a 0%, #0a0a0a 100%);
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.9rem; font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    transition: all 0.35s var(--ios-ease);
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.15) inset,
+      0 4px 16px rgba(0, 0, 0, 0.2),
+      0 0 20px rgba(0, 0, 0, 0.08);
+  }
+  .btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+  }
+  .btn:hover::before { left: 100%; }
+  .btn::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, transparent 100%);
+    border-radius: 14px 14px 50% 50% / 14px 14px 20% 20%;
+    pointer-events: none;
+  }
+  .btn:hover {
+    transform: scale(1.03);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.25) inset,
+      0 8px 24px rgba(0, 0, 0, 0.25),
+      0 0 30px rgba(0, 0, 0, 0.15);
+  }
+  .btn:active { transform: scale(0.97); transition: transform 0.1s ease; }
+
+  .btn-outline {
+    background: rgba(255, 255, 255, 0.75);
+    color: var(--black);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      0 4px 16px rgba(0, 0, 0, 0.06);
+  }
+  .btn-outline::after {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, transparent 100%);
+  }
+  .btn-outline:hover {
+    background: rgba(255, 255, 255, 1);
+    color: var(--black);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  /* ============ SECTION TITLE ============ */
+  .section-title {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.25em;
+    color: var(--gray-800); font-weight: 700;
+    margin-bottom: 32px;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.35) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.4),
+      0 2px 16px rgba(0, 0, 0, 0.05);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.2), transparent);
+  }
+
+/* ============ SECTION TEXT ============ */
+  .section-text {
+    font-size: rem; text-transform: none; letter-spacing: 0.05em;
+    color: var(--gray-800); font-weight: 600;
+    margin-bottom: 32px;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.35) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.4),
+      0 2px 16px rgba(0, 0, 0, 0.05);
+    display: block; align-items: center; gap: 12px;
+  }
+  .section-text::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.2), transparent);
+  }
+
+  /* ============ MEMBER CARDS ============ */
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 80px;
+  }
+  .member-card {
+    padding: 32px 24px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.45) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 24px;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 1),
+      inset 1px 0 0 rgba(255, 255, 255, 0.7),
+      inset -1px 0 0 rgba(255, 255, 255, 0.7),
+      inset 0 -1.5px 0 rgba(255, 255, 255, 0.4),
+      0 8px 32px rgba(0, 0, 0, 0.06),
+      0 0 40px rgba(180, 180, 180, 0.1);
+    transition: all 0.4s var(--ios-ease);
+  }
+  .member-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, transparent 100%);
+    border-radius: 24px 24px 50% 50% / 24px 24px 15% 15%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .member-card::after {
+    content: '';
+    position: absolute;
+    bottom: -50%; right: -30%;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(160, 160, 160, 0.2) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(30px);
+    transition: all 0.5s var(--ios-ease);
+  }
+  .member-card:hover::after {
+    background: radial-gradient(circle, rgba(100, 100, 100, 0.3) 0%, transparent 65%);
+    transform: scale(1.2);
+  }
+  .member-card > * { position: relative; z-index: 1; }
+  .member-card:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.45) 50%, rgba(255, 255, 255, 0.65) 100%);
+    transform: translateY(-6px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.95);
+    box-shadow:
+      inset 0 2px 0 rgba(255, 255, 255, 1),
+      inset 1px 0 0 rgba(255, 255, 255, 0.85),
+      inset -1px 0 0 rgba(255, 255, 255, 0.85),
+      inset 0 -2px 0 rgba(255, 255, 255, 0.55),
+      0 24px 60px rgba(0, 0, 0, 0.12),
+      0 0 60px rgba(120, 120, 120, 0.2);
+  }
+  .member-card:active { transform: scale(0.98); transition: transform 0.1s ease; }
+  .member-card .num {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 0.75rem; color: var(--gray-800); margin-bottom: 40px; letter-spacing: 0.15em;
+    font-weight: 700;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.5) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    border-radius: 999px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      0 2px 12px rgba(0, 0, 0, 0.05);
+  }
+  .member-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.02em; }
+  .member-card p { font-size: 0.85rem; color: var(--gray-600); }
+  .member-card .arrow {
+    margin-top: 24px; font-size: 1.1rem; color: var(--gray-400);
+    transition: transform 0.25s var(--ios-ease), color 0.25s var(--ios-ease);
+  }
+  .member-card:hover .arrow {
+    transform: translateX(6px);
+    color: var(--black);
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.4));
+  }
+
+  /* ============ PROFILE HEADER ============ */
+  .profile-header {
+    display: grid; grid-template-columns: 1fr 2fr; gap: 60px;
+    padding: 40px;
+    margin-bottom: 32px;
+    align-items: start;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.25) 100%);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 28px;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 1),
+      inset 1px 0 0 rgba(255, 255, 255, 0.7),
+      inset -1px 0 0 rgba(255, 255, 255, 0.7),
+      inset 0 -1.5px 0 rgba(255, 255, 255, 0.4),
+      0 20px 60px rgba(0, 0, 0, 0.08),
+      0 0 80px rgba(180, 180, 180, 0.12);
+  }
+  .profile-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 45%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, transparent 100%);
+    border-radius: 28px 28px 50% 50% / 28px 28px 15% 15%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .profile-header::after {
+    content: '';
+    position: absolute;
+    top: -50%; right: -15%;
+    width: 450px; height: 450px;
+    background: radial-gradient(circle, rgba(160, 160, 160, 0.2) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(40px);
+  }
+  .profile-header > * { position: relative; z-index: 1; }
+
+  .profile-avatar {
+    width: 100%; aspect-ratio: 1;
+    background: linear-gradient(135deg, #2a2a2a 0%, #0a0a0a 100%);
+    color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem; font-weight: 800; letter-spacing: -0.03em;
+    border-radius: 24px;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -1.5px 0 rgba(0, 0, 0, 0.5),
+      0 24px 48px rgba(0, 0, 0, 0.2),
+      0 0 60px rgba(100, 100, 100, 0.2);
+    position: relative; overflow: hidden;
+    transition: transform 0.5s var(--ios-ease);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .profile-avatar::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, transparent 100%);
+    pointer-events: none; z-index: 1;
+  }
+  .profile-avatar img {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; border-radius: 24px;
+    z-index: 0;
+  }
+  .profile-avatar:hover { transform: scale(1.03) rotate(-2deg); }
+
+  .profile-info .label {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em;
+    color: var(--gray-600); margin-bottom: 16px; font-weight: 600;
+  }
+  .profile-info h1 {
+    font-size: 3rem; font-weight: 800; letter-spacing: -0.035em; line-height: 1.05;
+    margin-bottom: 24px;
+    background: linear-gradient(180deg, #0a0a0a 0%, #555 45%, #0a0a0a 55%, #2a2a2a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    position: relative;
+    filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.08));
+  }
+  .profile-info h1::after {
+    content: '';
+    position: absolute;
+    bottom: -6px; left: 0;
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, #1a1a1a, #888, #1a1a1a);
+    border-radius: 3px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  }
+  .profile-info .role { font-size: 1.1rem; color: var(--gray-600); margin-bottom: 32px; }
+  .profile-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.8); }
+  .profile-meta div .meta-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gray-400); margin-bottom: 6px; font-weight: 600; }
+  .profile-meta div .meta-value {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 0.95rem; font-weight: 600; color: var(--black);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.5) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.4),
+      0 2px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  /* ============ PROFILE BODY ============ */
+  .profile-body {
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 28px;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 1),
+      inset 1px 0 0 rgba(255, 255, 255, 0.6),
+      inset -1px 0 0 rgba(255, 255, 255, 0.6),
+      inset 0 -1.5px 0 rgba(255, 255, 255, 0.35),
+      0 8px 32px rgba(0, 0, 0, 0.06),
+      0 0 60px rgba(180, 180, 180, 0.08);
+  }
+  .profile-body::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 35%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, transparent 100%);
+    border-radius: 28px 28px 50% 50% / 28px 28px 12% 12%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .profile-body > * { position: relative; z-index: 1; }
+  .profile-body h2 {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.25em;
+    color: var(--gray-800); font-weight: 700;
+    margin-bottom: 20px;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.35) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.4),
+      0 2px 16px rgba(0, 0, 0, 0.05);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .profile-body h2::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: linear-gradient(135deg, #1a1a1a, #666);
+    border-radius: 50%;
+    box-shadow:
+      0 0 8px rgba(0, 0, 0, 0.6),
+      0 0 16px rgba(120, 120, 120, 0.4);
+    flex-shrink: 0;
+  }
+  .profile-body p {
+    font-size: 1rem; color: var(--gray-800); margin-bottom: 20px; max-width: 720px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+  .profile-body a {
+    background: linear-gradient(180deg, #1a1a1a 0%, #666 50%, #1a1a1a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    text-decoration: none;
+    position: relative;
+  }
+  .profile-body a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #1a1a1a, transparent);
+    border-radius: 2px;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+  .profile-body a:hover::after { opacity: 1; box-shadow: 0 0 8px rgba(0, 0, 0, 0.4); }
+
+  /* ============ PAGE HEADER ============ */
+  .page-header {
+    padding: 32px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 28px;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 1),
+      inset 1px 0 0 rgba(255, 255, 255, 0.6),
+      inset -1px 0 0 rgba(255, 255, 255, 0.6),
+      inset 0 -1.5px 0 rgba(255, 255, 255, 0.35),
+      0 8px 32px rgba(0, 0, 0, 0.06);
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, transparent 100%);
+    border-radius: 28px 28px 50% 50% / 28px 28px 15% 15%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .page-header::after {
+    content: '';
+    position: absolute;
+    top: -50%; right: -10%;
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(180, 180, 180, 0.25) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(40px);
+  }
+  .page-header > * { position: relative; z-index: 1; }
+  .page-header .label {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em;
+    color: var(--gray-600); margin-bottom: 16px; font-weight: 600;
+  }
+  .page-header h1 {
+    font-size: 3rem; font-weight: 800; letter-spacing: -0.035em; line-height: 1.1;
+    margin-bottom: 16px;
+    background: linear-gradient(180deg, #0a0a0a 0%, #555 45%, #0a0a0a 55%, #2a2a2a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    position: relative;
+  }
+  .page-header h1::after {
+    content: '';
+    position: absolute;
+    bottom: -6px; left: 0;
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, #1a1a1a, #888, #1a1a1a);
+    border-radius: 3px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  }
+  .page-header p { font-size: 1rem; color: var(--gray-600); max-width: 600px; }
+
+  /* ============ ITEM LIST ============ */
+  .items-list { display: grid; gap: 14px; }
+  .item {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 24px;
+    align-items: center;
+    padding: 24px 28px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 20px;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+      inset 1px 0 0 rgba(255, 255, 255, 0.5),
+      inset -1px 0 0 rgba(255, 255, 255, 0.5),
+      inset 0 -1.5px 0 rgba(255, 255, 255, 0.3),
+      0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.35s var(--ios-ease);
+  }
+  .item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, transparent 100%);
+    border-radius: 20px 20px 50% 50% / 20px 20px 12% 12%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .item > * { position: relative; z-index: 1; }
+  .item:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.4) 100%);
+    transform: translateX(6px);
+    border-color: rgba(255, 255, 255, 0.95);
+    box-shadow:
+      inset 0 2px 0 rgba(255, 255, 255, 1),
+      inset 1px 0 0 rgba(255, 255, 255, 0.7),
+      inset -1px 0 0 rgba(255, 255, 255, 0.7),
+      inset 0 -2px 0 rgba(255, 255, 255, 0.5),
+      0 12px 40px rgba(0, 0, 0, 0.1),
+      0 0 40px rgba(150, 150, 150, 0.15);
+  }
+  .item:active { transform: scale(0.985); transition: transform 0.1s ease; }
+  .item .item-num { font-size: 0.8rem; color: var(--gray-400); letter-spacing: 0.15em; font-weight: 700; }
+  .item .item-content h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.01em; }
+  .item .item-content p { font-size: 0.85rem; color: var(--gray-600); }
+  .item .item-tag {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em;
+    color: var(--gray-800); font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    padding: 6px 14px; white-space: nowrap; border-radius: 999px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.5) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.4),
+      0 2px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  /* ============ VIDEO WRAPPER ============ */
+  .video-wrapper {
+    position: relative; padding-bottom: 56.25%; height: 0;
+    overflow: hidden; max-width: 800px; margin: 20px 0;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 12px 40px rgba(0, 0, 0, 0.08),
+      0 0 40px rgba(150, 150, 150, 0.1);
+  }
+  .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+  /* ============ FOTO GRID ============ */
+  .foto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin: 20px 0;
+  }
+  .foto-grid img {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 8px 32px rgba(0, 0, 0, 0.06);
+    transition: transform 0.4s var(--ios-ease);
+  }
+  .foto-grid img:hover { transform: scale(1.02); }
+
+  /* ============ FOOTER ============ */
+  footer {
+    padding: 30px 40px;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-top: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.8),
+      0 -8px 32px rgba(0, 0, 0, 0.03);
+  }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.85rem; color: var(--gray-600);
+    flex-wrap: wrap; gap: 12px;
+  }
+  footer strong { color: var(--black); font-weight: 700; }
+
+  /* ============================================================
+     TABLET
+  ============================================================ */
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .nav-inner { height: auto; flex-direction: column; padding: 15px 0; gap: 12px; }
+    nav ul { gap: 18px; flex-wrap: wrap; justify-content: center; }
+    nav ul li a.active::after { display: none; }
+    .dropdown-menu { left: auto; right: 0; transform: translateX(0) translateY(-8px) scale(0.96); }
+    .dropdown:hover .dropdown-menu { transform: translateX(0) translateY(0) scale(1); }
+
+    main { padding: 40px 20px 60px; }
+    .hero-home { padding: 40px 28px; margin-bottom: 40px; }
+    .hero-home h1 { font-size: 2.5rem; }
+    .hero-home .desc { font-size: 1rem; }
+
+    .members-grid { grid-template-columns: repeat(2, 1fr); }
+    .profile-header { grid-template-columns: 1fr; gap: 32px; padding: 28px; }
+    .profile-avatar { max-width: 200px; font-size: 4rem; margin: 0 auto; }
+    .profile-info h1 { font-size: 2.2rem; }
+    .profile-meta { grid-template-columns: 1fr 1fr; }
+
+    .page-header { padding: 24px; }
+    .page-header h1 { font-size: 2rem; }
+
+    .item { padding: 20px 20px; gap: 16px; }
+    .item .item-content h3 { font-size: 1rem; }
+  }
+
+  /* ============================================================
+     MOBILE
+  ============================================================ */
+  @media (max-width: 700px) {
+    body { font-size: 0.95rem; }
+
+    nav { padding: 0 16px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+    .nav-inner { padding: 12px 0; }
+    .logo { font-size: 0.95rem; }
+    nav ul { gap: 14px; }
+    nav ul li a { font-size: 0.82rem; }
+
+    main { padding: 30px 16px 50px; }
+
+    .hero-home { padding: 28px 20px; margin-bottom: 32px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 24px; }
+    .hero-home .label { font-size: 0.68rem; margin-bottom: 16px; padding: 4px 10px; }
+    .hero-home h1 { font-size: 1.75rem; line-height: 1.15; margin-bottom: 20px; }
+    .hero-home .desc { font-size: 0.9rem; margin-bottom: 28px; }
+    .btn { padding: 12px 22px; font-size: 0.85rem; }
+
+    .members-grid { grid-template-columns: 1fr; margin-bottom: 50px; gap: 12px; }
+    .member-card { padding: 22px 20px; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 20px; }
+    .member-card .num { margin-bottom: 20px; }
+    .member-card h3 { font-size: 1.05rem; }
+
+    .profile-header { padding: 24px 20px; gap: 24px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 22px; }
+    .profile-avatar { max-width: 160px; font-size: 3rem; border-radius: 18px; margin: 0 auto; }
+    .profile-avatar img { border-radius: 18px; }
+    .profile-info h1 { font-size: 1.6rem; margin-bottom: 16px; }
+    .profile-info .role { font-size: 0.95rem; margin-bottom: 20px; }
+    .profile-meta { grid-template-columns: 1fr; gap: 16px; }
+
+    .profile-body { padding: 24px 20px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 22px; }
+    .profile-body h2 { font-size: 0.7rem; margin-bottom: 14px; padding: 8px 14px; }
+    .profile-body p { font-size: 0.92rem; margin-bottom: 16px; }
+
+    .page-header { padding: 22px 20px; margin-bottom: 24px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 22px; }
+    .page-header h1 { font-size: 1.6rem; }
+    .page-header p { font-size: 0.9rem; }
+    
+
+    .item {
+      grid-template-columns: 36px 1fr;
+      gap: 12px;
+      padding: 18px 16px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 16px;
+    }
+    .item .item-num { font-size: 0.7rem; }
+    .item .item-content h3 { font-size: 0.95rem; }
+    .item .item-content p { font-size: 0.8rem; }
+    .item .item-tag { display: none; }
+
+    .page.active .items-list .item,
+    .page.active .members-grid .member-card,
+    .page.active .page-header,
+    .page.active .profile-header,
+    .page.active .profile-body,
+    .page.active .hero-home {
+      animation: none;
+    }
+
+    iframe { width: 100% !important; height: 220px !important; }
+    video { width: 100% !important; }
+
+    .foto-grid { grid-template-columns: 1fr; }
+
+    footer { padding: 20px 16px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+    .footer-inner { flex-direction: column; text-align: center; font-size: 0.78rem; gap: 8px; }
+  }
+
+  /* ============================================================
+     MOBILE KECIL
+  ============================================================ */
+  @media (max-width: 400px) {
+    .hero-home h1 { font-size: 1.5rem; }
+    .profile-info h1 { font-size: 1.35rem; }
+    .page-header h1 { font-size: 1.35rem; }
+    nav ul li a { font-size: 0.78rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav>
+  <div class="nav-inner">
+    <a class="logo" onclick="goTo('home')">Kelompok Enam</a>
+    <ul>
+      <li><a onclick="goTo('home')" data-page="home">Home</a></li>
+      <li class="dropdown">
+        <a data-page="anggota">Anggota</a>
+        <ul class="dropdown-menu">
+          <li><a onclick="goTo('rizki')" data-page="rizki">Muhammad Rizki Alfarizi</a></li>
+          <li><a onclick="goTo('adriano')" data-page="adriano">Adriano Ferdinan</a></li>
+          <li><a onclick="goTo('abhinaya')" data-page="abhinaya">Abhinaya Zaidan Harsya</a></li>
+          <li><a onclick="goTo('fawwaz')" data-page="fawwaz">Nizarul Fawwaz Assyaihan</a></li>
+          <li><a onclick="goTo('vincent')" data-page="vincent">Vincentius Risga Kristiawan</a></li>
+          <li><a onclick="goTo('rahul')" data-page="rahul">Rahul Syafiq Zuhri</a></li>
+        </ul>
+      </li>
+      <li><a onclick="goTo('project')" data-page="project">Project</a></li>
+      <li><a onclick="goTo('tugas-individu')" data-page="tugas-individu">Tugas Individu</a></li>
+      <li><a onclick="goTo('tugas-kelompok')" data-page="tugas-kelompok">Tugas Kelompok</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+  <section class="page active" id="page-home">
+    <div class="hero-home">
+      <div class="label">Kelompok — 2025</div>
+      <h1>Kami adalah <em>enam</em> orang yang belajar, berkarya, dan bertumbuh bersama.</h1>
+      <p class="desc">Website ini berisi profil anggota, kumpulan project, tugas individu, serta tugas kelompok yang telah kami kerjakan.</p>
+      <a class="btn" onclick="scrollToAnggota()">Lihat Anggota →</a>
+    </div>
+
+        <div class="section-title">HyTech</div>
+ <div class="section-text">
+  <p>Innovate. Create. Move Forward.</p>
+
+  <p>Hytech adalah kelompok yang berfokus pada kreativitas, teknologi, dan inovasi. Kami menggabungkan ide, kemampuan, dan kerja sama untuk menciptakan solusi yang bisa diterapkan di kehidupan sehari-hari.</p>
+
+  <p>Bukan cuma sekadar bikin proyek.</p>
+  <p>Kami belajar, mencoba, gagal, memperbaiki, lalu bikin lebih baik.</p>
+
+  <p>Meet the Team<br>
+  Hytech Team • TKR • 2026</p>
+</div>
+
+<div id="daftar-anggota"></div>
+    <div class="section-title">Anggota Kelompok</div>
+    <div class="members-grid">
+      <div class="member-card" onclick="goTo('rizki')"><div class="num">01</div><h3>Muhammad Rizki Alfarizi</h3><p>Ketua Kelompok</p><div class="arrow">→</div></div>
+      <div class="member-card" onclick="goTo('adriano')"><div class="num">02</div><h3>Adriano Ferdinan</h3><p>Wakil Kelompok</p><div class="arrow">→</div></div>
+      <div class="member-card" onclick="goTo('abhinaya')"><div class="num">03</div><h3>Abhinaya Zaidan Harysa</h3><p>Anggota</p><div class="arrow">→</div></div>
+      <div class="member-card" onclick="goTo('fawwaz')"><div class="num">04</div><h3>Nizarul Fawwaz Assyaihan</h3><p>Anggota</p><div class="arrow">→</div></div>
+      <div class="member-card" onclick="goTo('vincent')"><div class="num">05</div><h3>Vincentius Risga Kristiawan</h3><p>Anggota</p><div class="arrow">→</div></div>
+      <div class="member-card" onclick="goTo('rahul')"><div class="num">06</div><h3>Rahul Syafiq Zuhri</h3><p>Anggota</p><div class="arrow">→</div></div>
+    </div>
+
+
+
+
+  </section>
+
+  <section class="page" id="page-adriano">
+    <div class="profile-header">
+      <div class="profile-avatar"><img src="IMG/a2.jpeg" alt="Adriano Ferdinan"></div>
+      <div class="profile-info">
+        <div class="label">Anggota 02</div>
+        <h1>Adriano Ferdinan</h1>
+        <p class="role">Wakil Kelompok</p>
+        <div class="profile-meta">
+          <div><div class="meta-label">Peran</div><div class="meta-value">Koordinator</div></div>
+          <div><div class="meta-label">Hobi</div><div class="meta-value">Simracing</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="profile-body">
+      <h2>Tentang</h2>
+      <p>Adriano Ferdinan adalah ketua kelompok yang bertanggung jawab dalam mengoordinasikan setiap kegiatan dan memastikan seluruh anggota bekerja dengan baik.</p>
+      <p>Dia memiliki minat besar dalam bidang kepemimpinan, komunikasi, dan pengembangan tim.</p>
+    </div>
+  </section>
+
+  <section class="page" id="page-abhinaya">
+    <div class="profile-header">
+      <div class="profile-avatar"><img src="IMG/a1.jpeg" alt="Abhinaya"></div>
+      <div class="profile-info">
+        <div class="label">Anggota 03</div>
+        <h1>Abhinaya Zaidan Harsya</h1>
+        <p class="role">Anggota</p>
+        <div class="profile-meta">
+          <div><div class="meta-label">Peran</div><div class="meta-value">Anggota</div></div>
+          <div><div class="meta-label">Hobi</div><div class="meta-value">Bersepeda</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="profile-body">
+      <h2>Tentang</h2>
+      <p>Abhinaya berperan dalam riset dan analisis data untuk menunjang setiap tugas kelompok.</p>
+      <p>Dia memiliki ketelitian tinggi dan senang mempelajari hal-hal baru.</p>
+    </div>
+  </section>
+
+  <section class="page" id="page-fawwaz">
+    <div class="profile-header">
+      <div class="profile-avatar"><img src="IMG/a5.jpeg" alt="Nizarul Fawwaz Assyaihan"></div>
+      <div class="profile-info">
+        <div class="label">Anggota 04</div>
+        <h1>Nizarul Fawwaz Assyaihan</h1>
+        <p class="role">Anggota</p>
+        <div class="profile-meta">
+          <div><div class="meta-label">Peran</div><div class="meta-value">Anggota</div></div>
+          <div><div class="meta-label">Hobi</div><div class="meta-value">Bermain Gitar</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="profile-body">
+      <h2>Tentang</h2>
+      <p>Nizarul Fawwaz Assyaihan bertanggung jawab dalam hal desain visual dan dokumentasi setiap kegiatan kelompok.</p>
+      <p>Dia memiliki kreativitas tinggi dan senang menuangkan ide dalam bentuk visual.</p>
+    </div>
+  </section>
+
+  <section class="page" id="page-rizki">
+    <div class="profile-header">
+      <div class="profile-avatar"><img src="IMG/a3.jpeg" alt="Muhammad Rizki Alfarizi"></div>
+      <div class="profile-info">
+        <div class="label">Anggota 01</div>
+        <h1>Muhammad Rizki Alfarizi</h1>
+        <p class="role">Ketua Kelompok</p>
+        <div class="profile-meta">
+          <div><div class="meta-label">Peran</div><div class="meta-value">Ketua Kelompok</div></div>
+          <div><div class="meta-label">Hobi</div><div class="meta-value">Gaming</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="profile-body">
+      <h2>Tentang</h2>
+      <p>Muhammad Rizki Alfarizi menangani aspek teknis, terutama dalam hal pemrograman dan pengembangan produk digital kelompok.</p>
+      <p>Dia senang memecahkan masalah dengan pendekatan logis dan sistematis.</p>
+    </div>
+  </section>
+
+  <section class="page" id="page-vincent">
+    <div class="profile-header">
+      <div class="profile-avatar">V</div>
+      <div class="profile-info">
+        <div class="label">Anggota 05</div>
+        <h1>Vincentius Risga Kristiawan</h1>
+        <p class="role">Anggota</p>
+        <div class="profile-meta">
+          <div><div class="meta-label">Peran</div><div class="meta-value">Anggota</div></div>
+          <div><div class="meta-label">Hobi</div><div class="meta-value">Foto</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="profile-body">
+      <h2>Tentang</h2>
+      <p>Vincentius Risga Kristiawan berperan sebagai juru bicara kelompok saat presentasi dan menyampaikan hasil kerja kelompok.</p>
+      <p>Dia percaya bahwa komunikasi yang baik adalah kunci keberhasilan sebuah tim.</p>
+    </div>
+  </section>
+
+  <section class="page" id="page-rahul">
+    <div class="profile-header">
+      <div class="profile-avatar"><img src="IMG/a4.jpeg" alt="Rahul Syafiq Zuhri"></div>
+      <div class="profile-info">
+        <div class="label">Anggota 06</div>
+        <h1>Rahul Syafiq Zuhri</h1>
+        <p class="role">Anggota</p>
+        <div class="profile-meta">
+          <div><div class="meta-label">Peran</div><div class="meta-value">Anggota</div></div>
+          <div><div class="meta-label">Hobi</div><div class="meta-value">Bersepeda</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="profile-body">
+      <h2>Tentang</h2>
+      <p>Rahul Syafiq Zuhri berperan dalam riset dan pengembangan alat alat penyolder otomatis.</p>
+    </div>
+  </section>
+
+  <section class="page" id="page-project">
+    <div class="page-header">
+      <div class="label">Karya Kami</div>
+      <h1>Project</h1>
+      <p>Kumpulan project yang sedang dan telah kami kerjakan bersama sebagai sebuah kelompok.</p>
+    </div>
+    <div class="items-list">
+      <div class="item"><div class="item-num">01</div><div class="item-content"><h3>Website Profil Kelompok</h3><p>Membangun website profil kelompok dengan desain minimalis.</p></div><div class="item-tag">Selesai</div></div>
+
+    </div>
+  </section>
+
+  <section class="page" id="page-tugas-individu">
+    <div class="page-header">
+      <div class="label">Pekerjaan Pribadi</div>
+      <h1>Tugas Individu</h1>
+      <p>Daftar tugas individu yang dikerjakan oleh masing-masing anggota kelompok.</p>
+    </div>
+    <div class="items-list">
+      <div class="item" onclick="goTo('tugas-rizki')"><div class="item-num">01</div><div class="item-content"><h3>Rizki — Ketua Kelompok</h3><p>Tugas yang dikerjakan oleh Rizki.</p></div><div class="item-tag">Proses</div></div>
+      <div class="item" onclick="goTo('tugas-adriano')"><div class="item-num">02</div><div class="item-content"><h3>Adriano — Wakil Kelompok</h3><p>Tugas yang dikerjakan oleh Adriano.</p></div><div class="item-tag">Selesai</div></div>
+      <div class="item" onclick="goTo('tugas-fawwaz')"><div class="item-num">03</div><div class="item-content"><h3>Fawwaz — Anggota</h3><p>Tugas yang dikerjakan oleh Fawwaz.</p></div><div class="item-tag">Selesai</div></div>
+      <div class="item" onclick="goTo('tugas-abhinaya')"><div class="item-num">04</div><div class="item-content"><h3>Abhinaya — Anggota</h3><p>Tugas yang dikerjakan oleh Abhinaya.</p></div><div class="item-tag">Selesai</div></div>
+      <div class="item" onclick="goTo('tugas-vincent')"><div class="item-num">05</div><div class="item-content"><h3>Vincent — Anggota</h3><p>Tugas yang dikerjakan oleh Vincent.</p></div><div class="item-tag">Proses</div></div>
+      <div class="item" onclick="goTo('tugas-rahul')"><div class="item-num">06</div><div class="item-content"><h3>Rahul — Anggota</h3><p>Tugas yang dikerjakan oleh Rahul.</p></div><div class="item-tag">Selesai</div></div>
+    </div>
+  </section>
+
+  <section class="page" id="page-tugas-adriano">
+    <a class="btn btn-outline" onclick="goTo('tugas-individu')" style="margin-bottom:24px;">← Kembali</a>
+    <div class="page-header">
+      <div class="label">Tugas Individu — Adriano</div>
+      <h1>Laporan Tugas</h1>
+      <p>Oleh: Adriano</p>
+    </div>
+    <div class="profile-body">
+      <h2>Skillpass 1</h2>
+      <p>Skillpass mengenai cara perawatan dan pemeriksaan Aki/Baterai mobil.</p>
+      <h2>Video Skillpass</h2>
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/RvUOVwiL93c" allowfullscreen></iframe>
+      </div>
+      <h2>Hasil</h2>
+      <p>Pemeriksaan baterai/aki mobil berjalan dengan baik tanpa insiden apapun.</p>
+    </div>
+  </section>
+
+  <section class="page" id="page-tugas-abhinaya">
+    <a class="btn btn-outline" onclick="goTo('tugas-individu')" style="margin-bottom:24px;">← Kembali</a>
+    <div class="page-header">
+      <div class="label">Tugas Individu — Abhinaya</div>
+      <h1>Analisis Data</h1>
+      <p>Oleh: Abhinaya · Status: Selesai</p>
+    </div>
+    <div class="profile-body">
+      <h2>Skillpass 1</h2>
+      <p>Skillpass mengenai cara perawatan dan pemeriksaan Aki/Baterai mobil.</p>
+      <h2>Video Skillpass</h2>
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/dfKYVOvhI2Y" allowfullscreen></iframe>
+      </div>
+      <h2>Hasil</h2>
+      <p>Pemeriksaan baterai/aki mobil berjalan dengan baik tanpa insiden apapun.</p>
+    </div>
+  </section>
+
+  <section class="page" id="page-tugas-fawwaz">
+    <a class="btn btn-outline" onclick="goTo('tugas-individu')" style="margin-bottom:24px;">← Kembali</a>
+    <div class="page-header">
+      <div class="label">Tugas Individu — Fawwaz</div>
+      <h1>Laporan Tugas</h1>
+      <p>Oleh: Fawwaz</p>
+    </div>
+    <div class="profile-body">
+      <h2>Skillpass 1</h2>
+      <p>Skillpass mengenai cara perawatan dan pemeriksaan Aki/Baterai mobil.</p>
+      <h2>Video Skillpass</h2>
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/dfKYVOvhI2Y" allowfullscreen></iframe>
+      </div>
+      <h2>Hasil</h2>
+      <p>Pemeriksaan baterai/aki mobil berjalan dengan baik tanpa insiden apapun.</p>
+    </div>
+  </section>
+
+  <section class="page" id="page-tugas-rizki">
+    <a class="btn btn-outline" onclick="goTo('tugas-individu')" style="margin-bottom:24px;">← Kembali</a>
+    <div class="page-header">
+      <div class="label">Tugas Individu — Rizki</div>
+      <h1>Program Sederhana</h1>
+      <p>Oleh: Rizki · Status: Selesai</p>
+    </div>
+    <div class="profile-body">
+      <h2>Latar Belakang</h2>
+      <p>Pemrograman web adalah keterampilan penting di era digital.</p>
+      <h2>Hasil</h2>
+      <p>Aplikasi kecil yang berfungsi sesuai rencana.</p>
+    </div>
+  </section>
+
+  <section class="page" id="page-tugas-vincent">
+    <a class="btn btn-outline" onclick="goTo('tugas-individu')" style="margin-bottom:24px;">← Kembali</a>
+    <div class="page-header">
+      <div class="label">Tugas Individu — Vincent</div>
+      <h1>Naskah Presentasi</h1>
+      <p>Oleh: Vincent </p>
+    </div>
+    <div class="profile-body">
+      <h2>Latar Belakang</h2>
+      <p>Presentasi yang baik dimulai dari naskah yang terstruktur.</p>
+      <h2>Hasil</h2>
+      <p>Naskah selesai dengan durasi sekitar 10 menit.</p>
+    </div>
+  </section>
+
+  <section class="page" id="page-tugas-rahul">
+    <a class="btn btn-outline" onclick="goTo('tugas-individu')" style="margin-bottom:24px;">← Kembali</a>
+    <div class="page-header">
+      <div class="label">Tugas Individu — Rahul</div>
+      <h1>Laporan Tugas</h1>
+      <p>Oleh: Rahul</p>
+    </div>
+    <div class="profile-body">
+      <h2>Skillpass 1</h2>
+      <p>Skillpass mengenai cara perawatan dan pemeriksaan Aki/Baterai mobil.</p>
+      <h2>Video Skillpass</h2>
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/0pWty-OmgF0" allowfullscreen></iframe>
+      </div>
+      <h2>Hasil</h2>
+      <p>Pemeriksaan baterai/aki mobil berjalan dengan baik tanpa insiden apapun.</p>
+    </div>
+  </section>
+
+  <section class="page" id="page-tugas-kelompok">
+    <div class="page-header">
+      <div class="label">Kerja Bersama</div>
+      <h1>Tugas Kelompok</h1>
+      <p>Daftar tugas yang dikerjakan bersama-sama oleh seluruh anggota kelompok.</p>
+    </div>
+    <div class="items-list">
+      <div class="item"><div class="item-num">01</div><div class="item-content"><h3>Makalah Kolaborasi</h3><p>Penyusunan makalah bersama dengan pembagian bab per anggota.</p></div><div class="item-tag">Selesai</div></div>
+      <div class="item"><div class="item-num">02</div><div class="item-content"><h3>Presentasi Kelompok</h3><p>Presentasi hasil makalah di depan kelas.</p></div><div class="item-tag">Selesai</div></div>
+      <div class="item"><div class="item-num">03</div><div class="item-content"><h3>Proyek Website Bersama</h3><p>Pembuatan website kelompok secara kolaboratif.</p></div><div class="item-tag">Proses</div></div>
+      <div class="item"><div class="item-num">04</div><div class="item-content"><h3>Laporan Akhir Kegiatan</h3><p>Laporan akhir dari seluruh rangkaian kegiatan kelompok.</p></div><div class="item-tag">Proses</div></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>© 2025 <strong>Kelompok Enam</strong> — Adriano Ferdinan, Abhinaya Zaidan Harsya, Nizarul Fawwaz Assyaihan, Muhammad Rizki Alfarizi, Vincentius Risga Kristiawan, Rahul Syafiq Zuhri</div>
+    <div>Dibuat dengan semangat kolaborasi</div>
+  </div>
+</footer>
+
+<script>
+const pages = [
+  'home',
+  'adriano', 'abhinaya', 'fawwaz', 'rizki', 'vincent', 'rahul',
+  'project',
+  'tugas-individu',
+  'tugas-kelompok',
+  'tugas-adriano',
+  'tugas-abhinaya',
+  'tugas-fawwaz',
+  'tugas-rizki',
+  'tugas-vincent',
+  'tugas-rahul'
+];
+
+const activeMenuMap = {
+  'home': 'home',
+  'adriano': 'anggota',
+  'abhinaya': 'anggota',
+  'fawwaz': 'anggota',
+  'rizki': 'anggota',
+  'vincent': 'anggota',
+  'rahul': 'anggota',
+  'project': 'project',
+  'tugas-individu': 'tugas-individu',
+  'tugas-kelompok': 'tugas-kelompok',
+  'tugas-adriano': 'tugas-individu',
+  'tugas-abhinaya': 'tugas-individu',
+  'tugas-fawwaz': 'tugas-individu',
+  'tugas-rizki': 'tugas-individu',
+  'tugas-vincent': 'tugas-individu',
+  'tugas-rahul': 'tugas-individu'
+};
+
+function goTo(pageName) {
+  if (!pages.includes(pageName)) pageName = 'home';
+  const currentPage = document.querySelector('.page.active');
+  const targetPage = document.getElementById('page-' + pageName);
+  if (currentPage === targetPage) return;
+  if (currentPage) {
+    currentPage.style.opacity = '0';
+    currentPage.style.transform = 'scale(0.98) translateY(-8px)';
+  }
+  setTimeout(() => {
+    document.querySelectorAll('.page').forEach(p => {
+      p.classList.remove('active');
+      p.style.opacity = '';
+      p.style.transform = '';
+    });
+    if (targetPage) targetPage.classList.add('active');
+    document.querySelectorAll('nav a[data-page]').forEach(a => a.classList.remove('active'));
+    const activeMenu = activeMenuMap[pageName];
+    if (activeMenu) {
+      const menuEl = document.querySelector('nav a[data-page="' + activeMenu + '"]');
+      if (menuEl) menuEl.classList.add('active');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    history.replaceState(null, '', '#' + pageName);
+  }, 200);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash.replace('#', '') || 'home';
+  goTo(hash);
+});
+window.addEventListener('hashchange', () => {
+  const hash = window.location.hash.replace('#', '') || 'home';
+  goTo(hash);
+});
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if (window.scrollY > 10) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+function scrollToAnggota() {
+  const target = document.getElementById('daftar-anggota');
+  if (target) {
+    const yOffset = -80;   // ← offset (negatif = lebih ke atas)
+    const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
+</script>
+
+</body>
+</html>
